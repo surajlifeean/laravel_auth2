@@ -18,6 +18,8 @@ Route::get('/', function () {
 
 Route::get('/sendsms', 'HomeController@sendsms')->name('sendsms');
 
+Route::get('/verifyemail/{token}', 'Auth\RegisterController@verify');
+
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('users/logout','Auth\LoginController@logout')->name('logout');
@@ -32,7 +34,16 @@ Route::post('/login','Auth\AdminLoginController@login')->name('admin.login.submi
 
 Route::get('/logout','Auth\AdminLoginController@logout')->name('admin.logout');
 
+Route::post('/password/email', 'Auth\AdminForgotPasswordController@sendResetLinkEmail')->name('admin.password.email');
+Route::get('/password/reset', 'Auth\AdminForgotPasswordController@showLinkRequestForm')->name('admin.password.request');
+Route::post('/password/reset', 'Auth\AdminResetPasswordController@reset');
+Route::get('/password/reset/{token}', 'Auth\AdminResetPasswordController@showResetForm')->name('admin.password.reset');
+
 Route::get('/', 'AdminHomeController@index')->name('admin.dashboard');
+
+
+
+
 
 
 
